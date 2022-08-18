@@ -1,0 +1,245 @@
+{% extends "base.html" %}
+
+{% block title %}Add new glass{% endblock title %}
+
+{% block content %}
+    <div class="col-md-12">
+        <h4>Add new glass</h4>
+
+        <form method="POST" class="post-form" action="/addnewglass/{{ modelid }}">
+            {% csrf_token %}
+            <div class="container">
+                <br>
+                <div class="form-group row">
+                    <label class="col-sm-1 col-form-label"></label>
+                    <div class="col-sm-4">
+                        <h3>Input data</h3>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Damage type:</label>
+                    <div class="col-sm-4">
+                        {{ form.g_damage_type }}
+                    </div>
+                    <div class="col-sm-4">
+                        {{ form.g_damage_type.errors }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Glass data source:</label>
+                    <div class="col-sm-4">
+                        {{ form.g_source }}
+                    </div>
+                    <div class="col-sm-4">
+                        {{ form.g_glass_num.errors }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Damage side:</label>
+                    <div class="col-sm-4">
+                        {{ form.g_damage_side }}
+                    </div>
+                     <div class="col-sm-4">
+                        {{ form.errors }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">NaK:</label>
+                    <div class="col-sm-4">
+                        {{ form.g_nak }}
+                    </div>
+                     <div class="col-sm-4">
+                        {{ form.g_nak.errros }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">MgK:</label>
+                    <div class="col-sm-4">
+                        {{ form.g_mgk }}
+                    </div>
+                    <div class="col-sm-4">
+                        {{ form.g_mgk.errors }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">AlK:</label>
+                    <div class="col-sm-4">
+                        {{ form.g_alk }}
+                    </div>
+                    <div class="col-sm-4">
+                        {{ form.g_alk.errors }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">SiK:</label>
+                    <div class="col-sm-4">
+                        {{ form.g_sik }}
+                    </div>
+                    <div class="col-sm-4">
+                        {{ form.g_sik.errors }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">S K:</label>
+                    <div class="col-sm-4">
+                        {{ form.g_sk }}
+                    </div>
+                    <div class="col-sm-4">
+                        {{ form.g_sk.errors }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">CIK:</label>
+                    <div class="col-sm-4">
+                        {{ form.g_cik }}
+                    </div>
+                     <div class="col-sm-4">
+                        {{ form.g_cik.errors }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">K KA:</label>
+                    <div class="col-sm-4">
+                        {{ form.g_kka }}
+                    </div>
+                    <div class="col-sm-4">
+                        {{ form.g_kka.errors }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">K KB:</label>
+                    <div class="col-sm-4">
+                        {{ form.g_kkb }}
+                    </div>
+                    <div class="col-sm-4">
+                        {{ form.g_kkb.errors }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">CaKA:</label>
+                    <div class="col-sm-4">
+                        {{ form.g_caka }}
+                    </div>
+                    <div class="col-sm-4">
+                        {{ form.g_caka.errors }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">CaKB:</label>
+                    <div class="col-sm-4">
+                        {{ form.g_cakb }}
+                    </div>
+                    <div class="col-sm-4">
+                        {{ form.g_cakb.errors }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">TiK:</label>
+                    <div class="col-sm-4">
+                        {{ form.g_tik }}
+                    </div>
+                    <div class="col-sm-4">
+                        {{ form.g_tik.errors }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">CrK:</label>
+                    <div class="col-sm-4">
+                        {{ form.g_crk }}
+                    </div>
+                    <div class="col-sm-4">
+                        {{ form.g_crk.errors }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">MnK:</label>
+                    <div class="col-sm-4">
+                        {{ form.g_mnk }}
+                    </div>
+                     <div class="col-sm-4">
+                        {{ form.g_mnk.errors }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">FeK:</label>
+                    <div class="col-sm-4">
+                        {{ form.g_fek }}
+                    </div>
+                    <div class="col-sm-4">
+                        {{ form.g_fek.errors }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">CoKA:</label>
+                    <div class="col-sm-4">
+                        {{ form.g_coka }}
+                    </div>
+                    <div class="col-sm-4">
+                        {{ form.g_coka.errors }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">CuKA:</label>
+                    <div class="col-sm-4">
+                        {{ form.g_cuka }}
+                    </div>
+                     <div class="col-sm-4">
+                        {{ form.g_cuka.errors }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">CuKB:</label>
+                    <div class="col-sm-4">
+                        {{ form.g_cukb }}
+                    </div>
+                     <div class="col-sm-4">
+                        {{ form.g_cukb.errors }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">ZnKA:</label>
+                    <div class="col-sm-4">
+                        {{ form.g_znka }}
+                    </div>
+                    <div class="col-sm-4">
+                        {{ form.g_znka.errors }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">ZnKB:</label>
+                    <div class="col-sm-4">
+                        {{ form.g_znkb }}
+                    </div>
+                    <div class="col-sm-4">
+                        {{ form.g_znkb.errors }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">SrK:</label>
+                    <div class="col-sm-4">
+                        {{ form.g_srk }}
+                    </div>
+                    <div class="col-sm-4">
+                        {{ form.g_srk.errors }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Model ID:</label>
+                    <div class="col-sm-4">
+                        {{ form.g_model }}
+                    </div>
+                    <div class="col-sm-4">
+                        {{ form.g_model.errors }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-1 col-form-label"></label>
+                    <div class="col-sm-4">
+                        <button type="submit" class="btn btn-primary">Сохранить</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock content %}

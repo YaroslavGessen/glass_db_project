@@ -1,0 +1,208 @@
+{% extends "base.html" %}
+
+{% block title %}Edit glass{% endblock title %}
+
+{% block content %}
+    <div class="col-md-12">
+        <h4>Edit glass</h4>
+
+        <form method="POST" class="post-form" action="/updateglass/{{ glass.id }}">
+            {% csrf_token %}
+            <div class="container">
+                <br>
+                <div class="form-group row">
+                    <label class="col-sm-1 col-form-label"></label>
+                    <div class="col-sm-4">
+                        <h3>Update data</h3>
+                    </div>
+                </div>
+
+                {#Form errors#}
+                {% if form.errors %}
+                    <div class="alert alert-danger">
+                        <strong>{{ form.errors }}</strong>
+                    </div>
+                {% endif %}
+                {# End form errors#}
+
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Damage type:</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" name="g_damage_type" id="id_g_damage_type" required
+                               maxlength="255"
+                               value="{{ glass.g_damage_type }}"/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Glass data source:</label>
+                    <div class="col-sm-4">
+                        <input type="number" class="form-control" name="g_source" id="id_g_source" required
+                               value="{{ glass.g_source }}"/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Damage side:</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" name="g_damage_side" id="id_g_damage_side" required
+                               maxlength="30"
+                               value="{{ glass.g_damage_side }}"/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">NaK:</label>
+                    <div class="col-sm-4">
+                        <input type="number" step="0.01" class="form-control" name="g_nak" id="id_g_nak"
+                               value="{{ glass.g_nak }}"/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">MgK:</label>
+                    <div class="col-sm-4">
+                        <input type="number" class="form-control" name="g_mgk" id="id_g_mgk"
+                               value="{{ glass.g_mgk }}"/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">AlK:</label>
+                    <div class="col-sm-4">
+                        <input type="number" class="form-control" name="g_alk" id="id_g_alk"
+                               value="{{ glass.g_alk }}"/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">SiK:</label>
+                    <div class="col-sm-4">
+                        <input type="number" class="form-control" name="g_sik" id="id_g_sik"
+                               value="{{ glass.g_sik }}"/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">S K:</label>
+                    <div class="col-sm-4">
+                        <input type="number" class="form-control" name="g_sk" id="id_g_sk"
+                               value="{{ glass.g_sk }}"/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">CIK:</label>
+                    <div class="col-sm-4">
+                        <input type="number" class="form-control" name="g_cik" id="id_g_cik"
+                               value="{{ glass.g_cik }}"/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">K KA:</label>
+                    <div class="col-sm-4">
+                        <input type="number" class="form-control" name="g_kka" id="id_g_kka"
+                               value="{{ glass.g_kka }}"/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">K KB:</label>
+                    <div class="col-sm-4">
+                        <input type="number" class="form-control" name="g_kkb" id="id_g_kkb"
+                               value="{{ glass.g_kkb }}"/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">CaKA:</label>
+                    <div class="col-sm-4">
+                        <input type="number" class="form-control" name="g_caka" id="id_g_caka"
+                               value="{{ glass.g_caka }}"/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">CaKB:</label>
+                    <div class="col-sm-4">
+                        <input type="number" class="form-control" name="g_cakb" id="id_g_cakb"
+                               value="{{ glass.g_cakb }}"/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">TiK:</label>
+                    <div class="col-sm-4">
+                        <input type="number" class="form-control" name="g_tik" id="id_g_tik"
+                               value="{{ glass.g_tik }}"/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">CrK:</label>
+                    <div class="col-sm-4">
+                        <input type="number" class="form-control" name="g_crk" id="id_g_crk"
+                               value="{{ glass.g_crk }}"/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">MnK:</label>
+                    <div class="col-sm-4">
+                        <input type="number" class="form-control" name="g_mnk" id="id_g_mnk"
+                               value="{{ glass.g_mnk }}"/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">FeK:</label>
+                    <div class="col-sm-4">
+                        <input type="number" class="form-control" name="g_fek" id="id_g_fek"
+                               value="{{ glass.g_fek }}"/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">CoKA:</label>
+                    <div class="col-sm-4">
+                        <input type="number" class="form-control" name="g_coka" id="id_g_coka"
+                               value="{{ glass.g_coka }}"/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">CuKA:</label>
+                    <div class="col-sm-4">
+                        <input type="number" class="form-control" name="g_cuka" id="id_g_cuka"
+                               value="{{ glass.g_cuka }}"/>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">CuKB:</label>
+                <div class="col-sm-4">
+                    <input type="number" class="form-control" name="g_cukb" id="id_g_cukb"
+                           value="{{ glass.g_cukb }}"/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">ZnKA:</label>
+                <div class="col-sm-4">
+                    <input type="number" class="form-control" name="g_znka" id="id_g_znka"
+                           value="{{ glass.g_znka }}"/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">ZnKB:</label>
+                <div class="col-sm-4">
+                    <input type="number" class="form-control" name="g_znkb" id="id_g_znkb"
+                           value="{{ glass.g_znkb }}"/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">SrK:</label>
+                <div class="col-sm-4">
+                    <input type="number" class="form-control" name="g_srk" id="id_g_srk"
+                           value="{{ glass.g_srk }}"/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Vehicle ID:</label>
+                <div class="col-sm-4">
+                    <input type="number" class="form-control" name="g_model" id="id_g_model" readonly
+                           value="{{ glass.g_model_id }}"/>
+                </div>
+
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-1 col-form-label"></label>
+                <div class="col-sm-4">
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock content %}

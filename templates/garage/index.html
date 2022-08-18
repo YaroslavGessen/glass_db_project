@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}Add new vehicle{% endblock title %}
+
+{% block content %}
+    <div class="col-md-12">
+        <h4>Add new vehicle</h4>
+        <span><a href="/" class="btn btn-primary">Back to garage</a></span>
+
+        <form method="POST" class="post-form" action="/addnew">
+            {% csrf_token %}
+            <div class="container">
+                <br>
+                <div class="form-group row">
+                    <label class="col-sm-1 col-form-label"></label>
+                    <div class="col-sm-4">
+                        <h3>Input data</h3>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Vehicle num:</label>
+                    <div class="col-sm-4">
+                        {{ form.v_number }}
+                    </div>
+                    <div class="errornote">
+                        {{ form.v_number.errors }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Manufacture:</label>
+                    <div class="col-sm-4">
+                        {{ form.v_manufacture }}
+                    </div>
+                     <div class="row-form-errors">
+                        {{ form.v_manufacture.errors }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Model:</label>
+                    <div class="col-sm-4">
+                        {{ form.v_model }}
+                    </div>
+                    <div class="row-form-errors">
+                        {{ form.v_model.errors }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Date of prod:</label>
+                    <div class="col-sm-4">
+                        {{ form.v_date_of_prod }}
+                    </div>
+                    <div class="row-form-errors">
+                        {{ form.v_date_of_prod.errors }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Vector data:</label>
+                    <div class="col-sm-4">
+                        {{ form.json_data }}
+                    </div>
+                    <div class="col-sm-4">
+                        {{ form.json_data.errors }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-1 col-form-label"></label>
+                    <div class="col-sm-4">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock content %}
