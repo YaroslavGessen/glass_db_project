@@ -26,7 +26,7 @@ class CustomUserAdmin(UserAdmin):
             'fields': ('last_login', 'date_joined')
         }),
         ('Additional info', {
-            'fields': ('is_viewer', 'is_editor')
+            'fields': ('image', 'is_viewer', 'is_editor')
         })
     )
 
@@ -47,7 +47,7 @@ class CustomUserAdmin(UserAdmin):
             'fields': ('last_login', 'date_joined')
         }),
         ('Additional info', {
-            'fields': ('is_viewer', 'is_editor')
+            'fields': ('image', 'is_viewer', 'is_editor')
         })
     )
 

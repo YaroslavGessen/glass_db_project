@@ -13,7 +13,11 @@
                     {% endif %}
                 {% endif %}
                 <span><a href="/"
-                         class="btn btn-primary">Back to garage</a></span>
+                         class="btn btn-primary">Back to garage</a>
+                    <a  href="{% url 'download_vector_data'%}" class="btn btn-success col-md-offset-8">
+                        Download vector data
+                    </a>
+                </span>
                 <table id="bootstrapdatatable" class="table table-striped table-bordered" width="100%">
                     <thead>
                     <th>Vector ID</th>
@@ -35,7 +39,6 @@
                                     href="/vectordetails/{{ vector.v_source }}"
                                     class="btn btn-info btn-xs"
                                     data-title="Open"
-                                    data-toggle="modal"
                                     data-target="#open"><span
                                     class="glyphicon glyphicon-share-alt"></span></a></p></td>
                             {% endif %}
@@ -44,7 +47,6 @@
                                         href="/destroyvector/{{ vector.id }}"
                                         class="btn btn-danger btn-xs"
                                         data-title="Delete"
-                                        data-toggle="modal"
                                         data-target="#delete"><span
                                         class="glyphicon glyphicon-trash"></span></a></p></td>
                             {% endif %}

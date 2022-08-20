@@ -1,17 +1,30 @@
-import openpyxl_dictreader
 import os
-from django.conf import settings
-from django.http import Http404, FileResponse
+from io import BytesIO
 
+import openpyxl_dictreader
+import plotly.graph_objects as go
+import xlsxwriter
+from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, logout, login
+from django.contrib.auth.decorators import login_required
+from django.http import Http404, FileResponse
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from plotly.offline import plot
-import plotly.graph_objects as go
 
+from garage.forms import VehicleForm, GlassForm, UserRegistrationForm, UserLoginForm, CustomUserChangeForm
 from garage.models import Vehicles, Glasses, Vectors
-from garage.forms import VehicleForm, GlassForm, UserRegistrationForm, UserLoginForm
+
+from django.urls import reverse_lazy
+from django.contrib.auth.views import PasswordChangeView
+from django.contrib.messages.views import SuccessMessageMixin
+
+
+class ChangePasswordView(SuccessMessageMixin, PasswordChangeView):
+    template_name = 'registration/change_password.html'
+    success_message = "Successfully Changed Your Password"
+    success_url = reverse_lazy('profile')
 
 
 def redirect_to_login_view(request):
@@ -259,7 +272,7 @@ def import_vector(request):
                                               f'Updating data')
                 else:
                     vector = Vectors.objects.create(v_source=json_vector["file_source"],
-                                                   json_data=json_values)
+                                                    json_data=json_values)
                 vector.save()
         except:
             messages.warning(request, f'Wrong or empty file! Please use example template')
@@ -279,3 +292,111 @@ def download_file(request, file_path):
         return response
     except Exception:
         raise Http404
+
+
+@login_required
+def download_data(request, car_id):
+    # create our spreadsheet. Create it in memory with a BytesIO
+    row_value = ['ID', 'Damage type', 'Damage side', 'Glass data source', 'NaK', 'MgK', 'AlK', 'SiK', 'SK',
+                 'CIK', 'KKA', 'KKB', 'CaKA', 'CaKB', 'TiK', 'CrK', 'MnK', 'FeK', 'CoKA', 'CuKA', 'CuKB',
+                 'ZnKA', 'ZnKB', 'SrK']
+    output = BytesIO()
+    workbook = xlsxwriter.Workbook(output)
+    worksheet = workbook.add_worksheet()
+    try:
+        # Pars data from data base
+        glasses = Glasses.objects.filter(g_model_id=car_id)
+        for row_val in row_value:
+            worksheet.write(0, row_value.index(row_val), row_val)
+        row = 1
+        for glass in glasses:
+            data = [glass.id, glass.g_damage_type, glass.g_damage_side, glass.g_source, glass.g_nak,
+                    glass.g_mgk, glass.g_alk, glass.g_sik, glass.g_sk, glass.g_cik, glass.g_kka,
+                    glass.g_kkb, glass.g_caka, glass.g_cakb, glass.g_tik, glass.g_crk, glass.g_mnk, glass.g_fek,
+                    glass.g_coka, glass.g_cuka, glass.g_cukb, glass.g_znka, glass.g_znkb, glass.g_srk]
+            for row_num in row_value:
+                index = row_value.index(row_num)
+                worksheet.write(row, index, data[index])
+            row += 1
+    except:
+        messages.warning(request, f'Unable to download file')
+        return redirect(f'/')
+
+    workbook.close()
+
+    # create a response
+    response = HttpResponse(content_type='application/vnd.ms-excel')
+
+    # tell the browser what the file is named
+    try:
+        car = Vehicles.objects.filter(id=car_id).first()
+    except:
+        messages.warning(request, f'Unable to fine a car')
+    response['Content-Disposition'] = f'attachment;filename="{car.v_manufacture}_{car.v_number}_data.xlsx"'
+
+    # put the spreadsheet data into the response
+    response.write(output.getvalue())
+
+    # return the response
+    return response
+
+
+@login_required
+def download_vector_data(request):
+    # create our spreadsheet. Create it in memory with a BytesIO
+    row_value = ['Vector ID', 'Vector Source']
+    output = BytesIO()
+    workbook = xlsxwriter.Workbook(output)
+    worksheet = workbook.add_worksheet()
+    try:
+        # Pars data from data base
+        vectors = Vectors.objects.all()
+        for row_val in range(2048):
+            worksheet.write(0, 0, row_value[0])
+            worksheet.write(0, 1, row_value[1])
+            worksheet.write(0, 2+row_val, 1+row_val)
+        row = 1
+        for vector in vectors:
+            for row_num in range(2048):
+                worksheet.write(row, 0, vector.id)
+                worksheet.write(row, 1, vector.v_source)
+                worksheet.write(row, 2+row_num, vector.json_data['values'][row_num])
+            row += 1
+    except:
+        messages.warning(request, f'Unable to download file')
+        return redirect(f'show_vectors')
+
+    workbook.close()
+
+    # create a response
+    response = HttpResponse(content_type='application/vnd.ms-excel')
+
+    # tell the browser what the file is named
+    response['Content-Disposition'] = f'attachment;filename="vector_data.xlsx"'
+
+    # put the spreadsheet data into the response
+    response.write(output.getvalue())
+
+    # return the response
+    return response
+
+
+@login_required
+def profile(request):
+    if request.method == 'POST':
+        p_form = CustomUserChangeForm(request.POST,
+                                   request.FILES,
+                                   instance=request.user)
+        if p_form.is_valid():
+            p_form.save()
+            messages.success(request, f'{request.user}! Your account has been updated!')
+            return redirect('profile')
+
+    else:
+        p_form = CustomUserChangeForm(instance=request.user)
+
+    context = {
+        'p_form': p_form
+    }
+    return render(request, 'registration/profile.html', context)
+

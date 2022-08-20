@@ -1,6 +1,9 @@
 from django.contrib import admin
-from django.urls import path, re_path, include
+from django.urls import path, re_path
 from garage import views
+from django.conf import settings
+from django.conf.urls.static import static
+from garage.views import ChangePasswordView
 
 urlpatterns = [
     path('admin/', admin.site.urls, name='admin'),
@@ -23,4 +26,11 @@ urlpatterns = [
     path('', views.index, name='home'),
     path('show_vectors/', views.vectors, name='show_vectors'),
     re_path(r'^download/(?P<file_path>.*)/$', views.download_file, name='download_file'),
+    re_path(r'^downloaddata/(?P<car_id>.*)/$', views.download_data, name='download_data'),
+    re_path(r'^downloadvectordata/', views.download_vector_data, name='download_vector_data'),
+    re_path(r'^profile/', views.profile, name='profile'),
+    path('password/', ChangePasswordView.as_view(), name='password_change'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

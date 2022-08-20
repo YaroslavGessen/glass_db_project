@@ -58,13 +58,13 @@ class VectorsForm(forms.ModelForm):
 class CustomUserCreationForm(UserCreationForm):
     class Meta(UserCreationForm):
         model = CustomUser
-        fields = ('username', 'first_name', 'email', 'is_viewer', 'is_editor')
+        fields = ('image', 'username', 'first_name', 'email', 'is_viewer', 'is_editor')
 
 
 class CustomUserChangeForm(UserChangeForm):
     class Meta:
         model = CustomUser
-        fields = ('username', 'email')
+        fields = ('image', 'username', 'email')
 
 
 class UserRegistrationForm(forms.ModelForm):
